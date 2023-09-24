@@ -1,0 +1,22 @@
+server:
+  port: 8000
+  shutdown: graceful # Graceful shutdown
+  tomcat:
+    connection-timeout: 2s
+    keep-alive-timeout: 15s
+    threads:
+      max: 50
+      min-spare: 5
+spring:
+  application:
+    name: catalog-service
+  lifecycle:
+    timeout-per-shutdown-phase: 15s # Timeout for each phase of the graceful shutdown (ms)
+  # The following are the default settings for the data source
+  datasource:
+    username: user
+    password: password
+    url: jdbc:mysql://localhost:3306/wetalk # The name of the database is polardb_catalog
+    hikari:
+      connection-timeout: 2000 # 2 seconds Timeout for connecting to the database (ms)
+      maximum-pool-size: 5 # Maximum number of connections in the pool
