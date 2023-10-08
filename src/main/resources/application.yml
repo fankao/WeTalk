@@ -7,16 +7,33 @@ server:
     threads:
       max: 50
       min-spare: 5
+  servlet:
+    context-path: /wetalk
 spring:
   application:
-    name: catalog-service
+    name: wetalk
   lifecycle:
     timeout-per-shutdown-phase: 15s # Timeout for each phase of the graceful shutdown (ms)
   # The following are the default settings for the data source
   datasource:
-    username: user
+    username: root
     password: password
-    url: jdbc:mysql://localhost:3306/wetalk # The name of the database is polardb_catalog
+    url: jdbc:mysql://localhost:3306/wetalk_db?allowPublicKeyRetrieval=true&useSSL=false # The name of the database is polardb_catalog
     hikari:
       connection-timeout: 2000 # 2 seconds Timeout for connecting to the database (ms)
       maximum-pool-size: 5 # Maximum number of connections in the pool
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+  flyway:
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+app:
+  security:
+    jwt:
+      keystore-location: jwtkeystore.jks
+      keystore-password: password
+      key-alias: jwt-sign-key
+      private-key-passphrase: password

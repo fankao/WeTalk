@@ -1,1 +1,1 @@
-CREATE DATABASE wetalk;
+CREATE DATABASE wetalk_db;

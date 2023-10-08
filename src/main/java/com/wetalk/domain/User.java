@@ -1,10 +1,7 @@
 package com.wetalk.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.Set;
@@ -15,6 +12,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,4 +41,15 @@ public class User {
 
     @ManyToMany(mappedBy = "participants")
     private Set<ChatRoom> chatRooms;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role = RoleEnum.USER;
+
+    public User(String username, String email, String password, String profilePicture) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.profilePicture = profilePicture;
+    }
 }
